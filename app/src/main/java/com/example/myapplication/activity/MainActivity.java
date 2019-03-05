@@ -1,4 +1,4 @@
-package com.example.myapplication.Activity;
+package com.example.myapplication.activity;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -7,15 +7,12 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 
-import com.example.myapplication.Common.Common;
+import com.example.myapplication.common.Common;
 import com.example.myapplication.R;
-import com.example.myapplication.TodayWeather;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -45,7 +42,12 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.root_view);
+
+        coordinatorLayout =  findViewById(R.id.root_view);
+
+
+
+
 
         //RequestPermision
 
@@ -65,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
                             }
                             fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(MainActivity.this);
                             fusedLocationProviderClient.requestLocationUpdates(locationRequest,locationCallback,Looper.myLooper());
-
                         }
 
 
@@ -106,6 +107,8 @@ public class MainActivity extends AppCompatActivity {
         locationRequest.setFastestInterval(3000);
         locationRequest.setSmallestDisplacement(10.0f);
     }
+
+
 
 
 

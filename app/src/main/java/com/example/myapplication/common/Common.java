@@ -1,4 +1,4 @@
-package com.example.myapplication.Common;
+package com.example.myapplication.common;
 
 
 import android.location.Location;
@@ -14,8 +14,7 @@ public class Common {
     public Common(){}
 
     public static String fahrenheitToCelsius(double temp){
-        return ""+ ((temp-32)*(5/9));
-
+        return ""+ ((temp-32.0)*(5.0/9.0));
     }
 
 }
