@@ -53,5 +53,9 @@ dependencies {
     //Imgae from api call
     implementation 'com.squareup.picasso:picasso:2.71828'
 
+    //Circle progress
+    implementation 'com.emredavarci:circleprogressbar:1.0.4'
+
+
 
 }
