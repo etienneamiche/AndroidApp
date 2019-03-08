@@ -12,8 +12,8 @@ import io.reactivex.schedulers.Schedulers;
 
 public class TodayWeatherController {
 
-    private TodayWeather fragment;
-    public TodayWeatherController(TodayWeather fragment){
+    private TodayWeatherFragment fragment;
+    public TodayWeatherController(TodayWeatherFragment fragment){
         this.fragment = fragment;
     }
     private CompositeDisposable compositeDisposable;

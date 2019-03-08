@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.LinearLayout;
 
 import com.example.myapplication.common.Common;
 import com.example.myapplication.R;
@@ -41,8 +42,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
-
-
         coordinatorLayout =  findViewById(R.id.root_view);
 
 
@@ -89,10 +88,13 @@ public class MainActivity extends AppCompatActivity {
                 super.onLocationResult(locationResult);
                 Common.current_location = locationResult.getLastLocation();
 
-                Fragment todayWeather = TodayWeather.getInstance();
+                Fragment todayWeather = TodayWeatherFragment.getInstance();
+                Fragment forecastWeather = ForecastWeatherFragment.getInstance();
                 // Begin the transaction
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                 ft.replace(R.id.fragment_today_weather_container, todayWeather);
+                ft.replace(R.id.fragment_forecast_weather_container,forecastWeather);
+
                 ft.commit();
 
 
