@@ -38,14 +38,11 @@ public class TodayWeatherFragment extends Fragment implements SwipeRefreshLayout
     private CircleProgressBar progress_humidity;
     private SwipeRefreshLayout current_weather_panel;
     private CompositeDisposable compositeDisposable;
-    private IOpenWeather weatherService;
     private RotateAnimation r;
 
     private TodayWeatherController controller;
 
     private static TodayWeatherFragment instance;
-
-
 
 
     public static TodayWeatherFragment getInstance() {
@@ -57,9 +54,8 @@ public class TodayWeatherFragment extends Fragment implements SwipeRefreshLayout
 
     public TodayWeatherFragment() {
 
-        compositeDisposable = new CompositeDisposable();
-        Retrofit retrofit = RetroFitClient.getInstance();
-        weatherService = retrofit.create(IOpenWeather.class);
+        controller=new TodayWeatherController(this);
+
     }
 
     @Override
@@ -90,7 +86,7 @@ public class TodayWeatherFragment extends Fragment implements SwipeRefreshLayout
 
 
 
-        getWeatherInformation();
+        controller.getWeatherInformation();
 
         r =new RotateAnimation(0, 360f,
                 Animation.RELATIVE_TO_SELF, 0.5f,
@@ -102,28 +98,7 @@ public class TodayWeatherFragment extends Fragment implements SwipeRefreshLayout
         return itemView;
     }
 
-    private void getWeatherInformation() {
 
-        compositeDisposable.add(weatherService.getWeatherByLatLon(String.valueOf(Common.current_location.getLatitude()),
-                String.valueOf(Common.current_location.getLongitude()),
-                Common.API_KEY,
-                "metric")
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Results>() {
-                               @Override
-                               public void accept(Results results) throws Exception {
-                                   showData(results);
-                               }
-                           }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        showError(throwable);
-                    }
-                })
-
-        );
-    }
 
     public void showError(Throwable throwable) {
         Log.e("Error",throwable.getMessage());
@@ -150,7 +125,7 @@ public class TodayWeatherFragment extends Fragment implements SwipeRefreshLayout
 
     @Override
     public void onRefresh(){
-        getWeatherInformation();
+        controller.getWeatherInformation();
         current_weather_panel.setRefreshing(false);
     }
 

@@ -20,7 +20,7 @@ public class Common {
         return ""+ ((temp-32.0)*(5.0/9.0));
     }
 
-    public static String conertUnixToDate(long unixSecondes) {
+    public static String covertUnixToDate(long unixSecondes) {
 
         Date date = new java.util.Date(unixSecondes*1000L);
         SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy - HH");

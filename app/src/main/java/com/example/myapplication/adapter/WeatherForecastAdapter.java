@@ -36,7 +36,7 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
                 weatherForecastResults.getList().get(i).getWeather().get(0).getIcon()+
                 ".png").into(myViewHolder.img_icon_weather);
 
-        myViewHolder.txt_date.setText(Common.conertUnixToDate(weatherForecastResults.getList().get(i).getDt()));
+        myViewHolder.txt_date.setText(Common.covertUnixToDate(weatherForecastResults.getList().get(i).getDt()));
 
         myViewHolder.txt_description.setText(weatherForecastResults.getList().get(i).getWeather().get(0).getDescription());
 
