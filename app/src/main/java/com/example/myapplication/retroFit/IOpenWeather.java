@@ -1,6 +1,6 @@
 package com.example.myapplication.retroFit;
 
-import com.example.myapplication.model.ForecastResults;
+import com.example.myapplication.model.WeatherForecastResults;
 import com.example.myapplication.model.Results;
 
 import io.reactivex.Observable;
@@ -17,10 +17,10 @@ public interface IOpenWeather {
                                            @Query("units")String units);
 
     @GET("forecast")
-    Observable<ForecastResults> getForecastWeatherByLatLon(@Query("lat") String lat,
-                                                           @Query("lon") String lon,
-                                                           @Query("appid") String appid,
-                                                           @Query("units")String units);
+    Observable<WeatherForecastResults> getForecastWeatherByLatLon(@Query("lat") String lat,
+                                                                  @Query("lon") String lon,
+                                                                  @Query("appid") String appid,
+                                                                  @Query("units")String units);
 
 
 

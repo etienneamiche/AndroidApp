@@ -29,7 +29,7 @@ import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 
 
-public class TodayWeather extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class TodayWeatherFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
 
 
@@ -43,19 +43,19 @@ public class TodayWeather extends Fragment implements SwipeRefreshLayout.OnRefre
 
     private TodayWeatherController controller;
 
-    private static TodayWeather instance;
+    private static TodayWeatherFragment instance;
 
 
 
 
-    public static TodayWeather getInstance() {
+    public static TodayWeatherFragment getInstance() {
         if(instance == null) {
-            instance = new TodayWeather();
+            instance = new TodayWeatherFragment();
         }
         return instance;
     }
 
-    public TodayWeather() {
+    public TodayWeatherFragment() {
 
         compositeDisposable = new CompositeDisposable();
         Retrofit retrofit = RetroFitClient.getInstance();

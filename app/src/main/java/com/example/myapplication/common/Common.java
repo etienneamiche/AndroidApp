@@ -3,6 +3,9 @@ package com.example.myapplication.common;
 
 import android.location.Location;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Common {
 
 
@@ -17,4 +20,12 @@ public class Common {
         return ""+ ((temp-32.0)*(5.0/9.0));
     }
 
+    public static String conertUnixToDate(long unixSecondes) {
+
+        Date date = new java.util.Date(unixSecondes*1000L);
+        SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy - HH");
+        sdf.setTimeZone(java.util.TimeZone.getDefault());
+        return sdf.format(date)+"h";
+
+    }
 }
