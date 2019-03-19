@@ -1,11 +1,11 @@
-package com.example.myapplication.Model;
+package com.example.myapplication.model;
 
 public class Wind {
 
-    private Double speed;
-    private Integer deg;
+    private double speed;
+    private double deg;
 
-    public Double getSpeed() {
+    public double getSpeed() {
         return speed;
     }
 
@@ -13,7 +13,7 @@ public class Wind {
         this.speed = speed;
     }
 
-    public Integer getDeg() {
+    public double getDeg() {
         return deg;
     }
 
