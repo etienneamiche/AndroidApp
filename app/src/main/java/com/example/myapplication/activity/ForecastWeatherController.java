@@ -1,7 +1,10 @@
 package com.example.myapplication.activity;
 
+import android.support.v4.app.Fragment;
+import android.util.Log;
+
 import com.example.myapplication.common.Common;
-import com.example.myapplication.model.Results;
+import com.example.myapplication.model.WeatherForecastResults;
 import com.example.myapplication.retroFit.IOpenWeather;
 import com.example.myapplication.retroFit.RetroFitClient;
 
@@ -11,42 +14,44 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 
+public class ForecastWeatherController {
 
-public class TodayWeatherController {
-
-    private TodayWeatherFragment fragment;
     private CompositeDisposable compositeDisposable;
-    private IOpenWeather weatherService;
+    private ForecastWeatherFragment fragment;
+    private IOpenWeather mService;
 
-    public TodayWeatherController(TodayWeatherFragment fragment){
+
+    public ForecastWeatherController(ForecastWeatherFragment fragment){
         this.fragment = fragment;
-        compositeDisposable = new CompositeDisposable();
         Retrofit retrofit = RetroFitClient.getInstance();
-        weatherService = retrofit.create(IOpenWeather.class);
-    }
-    public void getWeatherInformation() {
+        mService = retrofit.create(IOpenWeather.class);
+        compositeDisposable = new CompositeDisposable();
 
-        compositeDisposable.add(weatherService.getWeatherByLatLon(String.valueOf(Common.current_location.getLatitude()),
-                String.valueOf(Common.current_location.getLongitude()),
+    }
+
+
+    public void getForecastWeatherInformation() {
+        compositeDisposable.add(mService.getForecastWeatherByLatLon(
+                Common.current_location.getLatitude()+"",
+                Common.current_location.getLongitude()+"",
                 Common.API_KEY,
                 "metric")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Results>() {
+                .subscribe(new Consumer<WeatherForecastResults>() {
                     @Override
-                    public void accept(Results results) throws Exception {
-                        fragment.showData(results);
+                    public void accept(WeatherForecastResults weatherForecastResults) throws Exception {
+
+                        fragment.displayForecastWeatherResult(weatherForecastResults);
+
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        fragment.showError(throwable);
+                        Log.d("Error",throwable.getMessage());
                     }
                 })
-
         );
+
     }
-
-
-
 }

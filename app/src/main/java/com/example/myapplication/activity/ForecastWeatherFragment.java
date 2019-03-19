@@ -31,14 +31,10 @@ import retrofit2.Retrofit;
 public class ForecastWeatherFragment extends Fragment {
     static ForecastWeatherFragment instance;
 
-    CompositeDisposable compositeDisposable;
-    IOpenWeather mService;
-
+    ForecastWeatherController controller;
     RecyclerView recycler_forecast;
     public ForecastWeatherFragment() {
-        compositeDisposable = new CompositeDisposable();
-        Retrofit retrofit = RetroFitClient.getInstance();
-        mService = retrofit.create(IOpenWeather.class);
+        controller = new ForecastWeatherController(this);
 
     }
 
@@ -60,36 +56,13 @@ public class ForecastWeatherFragment extends Fragment {
         recycler_forecast.setHasFixedSize(true);
         recycler_forecast.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL , false));
 
-        getForecastWeatherInformation();
+        controller.getForecastWeatherInformation();
         return itemView;
     }
 
-    private void getForecastWeatherInformation() {
-        compositeDisposable.add(mService.getForecastWeatherByLatLon(
-                Common.current_location.getLatitude()+"",
-                Common.current_location.getLongitude()+"",
-                Common.API_KEY,
-                "metric")
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<WeatherForecastResults>() {
-                    @Override
-                    public void accept(WeatherForecastResults weatherForecastResults) throws Exception {
-                        
-                        displayForecastWeatherResult(weatherForecastResults);
 
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        Log.d("Error",throwable.getMessage());
-                    }
-                })
-        );
 
-    }
-
-    private void displayForecastWeatherResult(WeatherForecastResults weatherForecastResults) {
+    public void displayForecastWeatherResult(WeatherForecastResults weatherForecastResults) {
 
         WeatherForecastAdapter adapter = new WeatherForecastAdapter(getContext(),weatherForecastResults);
 
