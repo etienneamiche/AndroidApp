@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.WeatherForecastAdapter;
@@ -69,5 +70,9 @@ public class ForecastWeatherFragment extends Fragment {
         recycler_forecast.setAdapter(adapter);
     }
 
+    public void showError(Throwable throwable) {
+        Log.e("Error",throwable.getMessage());
+        Toast.makeText(getActivity(), ""+throwable.getMessage(), Toast.LENGTH_SHORT).show();
+    }
 
 }
